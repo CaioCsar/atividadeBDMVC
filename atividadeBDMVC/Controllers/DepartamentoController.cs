@@ -57,7 +57,7 @@ namespace atividadeBDMVC.Controllers
         //GET EDIT
         public async Task<IActionResult> Edit(long? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -73,7 +73,7 @@ namespace atividadeBDMVC.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(long? id, [Bind("DepartamentoID, Nome")] Departamento departamento)
         {
-            if(id != departamento.DepartamentoID)
+            if (id != departamento.DepartamentoID)
             {
                 return NotFound();
             }
@@ -103,7 +103,39 @@ namespace atividadeBDMVC.Controllers
         {
             return _context.Departamentos.Any(e => e.DepartamentoID == id);
         }
+    
+
+    //GET Details
+    public async Task<IActionResult> Details(long? id)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+        var departamento = await _context.Departamentos.SingleOrDefaultAsync(mbox => mbox.DepartamentoID == id);
+        if(departamento == null)
+        {
+            return NotFound();
+        }
+        return View(departamento);
     }
 
-    //GET Detais
+    // GET DELETE
+     public async Task<IActionResult> Delete(long? id)
+        {
+            if(id == null)
+        {
+            return NotFound();
+        }
+        var departamento = await _context.Departamentos.SingleOrDefaultAsync(mbox => mbox.DepartamentoID == id);
+            if(departamento == null)
+        {
+                return NotFound();
+        }
+            return View(departamento);
+        }
+
+
+    }
+
 }

@@ -25,6 +25,22 @@ namespace atividadeBDMVC.Data
                 context.Departamentos.Add(d);
             }
             context.SaveChanges();
+
+            context.Database.EnsureCreated();
+            if (context.Instituicoes.Any())
+            {
+                return;
+            }
+            var instituicoes = new Instituicao[]
+            {
+                new Instituicao {Nome = "SENAI", Endereco = "Tancredo Neves"},
+                new Instituicao {Nome = "Unit", Endereco = "Farolandia"}
+            };
+            foreach (Instituicao i in instituicoes)
+            {
+                context.Instituicoes.Add(i);
+            }
+            context.SaveChanges();
         }
     }
 }

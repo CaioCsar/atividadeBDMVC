@@ -14,5 +14,6 @@ namespace atividadeBDMVC.Data
         }
 
         public DbSet<Departamento> Departamentos { get; set; }
+        public DbSet<Instituicao> Instituicoes { get; set; }
     }
 }
