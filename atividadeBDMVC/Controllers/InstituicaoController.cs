@@ -19,7 +19,6 @@ namespace atividadeBDMVC.Controllers
             this._context = context;
         }
 
-        // GET: InstituicaoController
         public async Task<IActionResult> Index()
         {
             return View(await _context.Instituicoes.OrderBy(c => c.Nome).ToListAsync());

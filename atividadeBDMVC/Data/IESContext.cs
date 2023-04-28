@@ -11,6 +11,7 @@ namespace atividadeBDMVC.Data
     {
         public IESContext(DbContextOptions<IESContext> options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<Departamento> Departamentos { get; set; }
