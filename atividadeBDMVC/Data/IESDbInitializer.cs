@@ -26,7 +26,6 @@ namespace atividadeBDMVC.Data
             }
             context.SaveChanges();
 
-            context.Database.EnsureCreated();
             if (context.Instituicoes.Any())
             {
                 return;

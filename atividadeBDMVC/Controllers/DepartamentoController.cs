@@ -23,7 +23,7 @@ namespace atividadeBDMVC.Controllers
             this._context = context;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             return View(await _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
         }

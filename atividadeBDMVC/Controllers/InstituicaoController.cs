@@ -48,7 +48,7 @@ namespace atividadeBDMVC.Controllers
         // POST: InstituicaoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync([Bind("Nome")] Instituicao instituicao)
+        public async Task<IActionResult> CreateAsync([Bind("Nome", "Endereco")] Instituicao instituicao)
         {
             try
             {
