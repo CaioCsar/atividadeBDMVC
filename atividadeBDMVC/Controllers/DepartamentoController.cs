@@ -1,6 +1,7 @@
 ﻿using atividadeBDMVC.Data;
 using atividadeBDMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,18 +26,23 @@ namespace atividadeBDMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
+            //insercao da classe instituicao do relacionamento, para que o objeto do departamento recuperado já traga os dados da instituição relacionada a ele
+            return View(await _context.Departamentos.Include(i => i.Instituicao).OrderBy(c => c.Nome).ToListAsync());
         }
 
         // GET
         public IActionResult Create()
         {
+            // para que liste as instituicoes em um dropdown list 
+            var instituicoes = _context.Instituicoes.OrderBy(i => i.Nome).ToList();
+            instituicoes.Insert(0, new Instituicao() { InstituicaoID = 0, Nome = "Selecione a Instituicao" });
+            ViewBag.Instituicoes = instituicoes;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("Nome", "InstituicaoID")] Departamento departamento)
         {
             try
             {
@@ -66,12 +72,15 @@ namespace atividadeBDMVC.Controllers
             {
                 return NotFound();
             }
+            //insercao dos dados de instituicao no edit
+            ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome",
+                departamento.InstituicaoID);
             return View(departamento);
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("DepartamentoID, Nome")] Departamento departamento)
+        public async Task<IActionResult> Edit(long? id, [Bind("DepartamentoID, Nome, InstituicaoID")] Departamento departamento)
         {
             if (id != departamento.DepartamentoID)
             {
@@ -97,6 +106,9 @@ namespace atividadeBDMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoId", "Nome",
+                departamento.InstituicaoID);
             return View(departamento);
         }
         private bool DepartamentoExists(long? id)
@@ -113,6 +125,10 @@ namespace atividadeBDMVC.Controllers
             return NotFound();
         }
         var departamento = await _context.Departamentos.SingleOrDefaultAsync(mbox => mbox.DepartamentoID == id);
+            /*O código a seguir traz a action Details que renderiza essa visão. Vamos usar: o SingleOrDefaultAsync() , que retorna
+o primeiro registro que satisfaça a condição; e o Load() , que carrega o objeto desejado no contexto, ou seja, a
+instituição do departamento procurado.*/
+            _context.Instituicoes.Where(i => departamento.InstituicaoID == i.InstituicaoID).Load();
         if(departamento == null)
         {
             return NotFound();

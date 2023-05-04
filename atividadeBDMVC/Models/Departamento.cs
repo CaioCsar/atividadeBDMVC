@@ -17,5 +17,9 @@ namespace atividadeBDMVC.Models
         [StringLength(100)]
         [Column("DEPNOME")]
         public string Nome { get; set; }
+
+        // ASSOCIACAO DA TABLE AINSTITUICAO COM A DEPARTAMENTO 1 - n; 1(instituicao)p/ n(departamento)
+        public long? InstituicaoID { get; set; }
+        public Instituicao Instituicao { get; set; }
     }
 }

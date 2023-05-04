@@ -11,21 +11,8 @@ namespace atividadeBDMVC.Data
         public static void Initialize(IESContext context)
         {
             context.Database.EnsureCreated();
-            if (context.Departamentos.Any())
-            {
-                return;
-            }
-            var departamentos = new Departamento[]
-            {
-                new Departamento { Nome="Ciência da Computação"},
-                new Departamento { Nome="Ciência de Alimentos"}
-            };
-            foreach (Departamento d in departamentos)
-            {
-                context.Departamentos.Add(d);
-            }
-            context.SaveChanges();
 
+            
             if (context.Instituicoes.Any())
             {
                 return;
@@ -38,6 +25,21 @@ namespace atividadeBDMVC.Data
             foreach (Instituicao i in instituicoes)
             {
                 context.Instituicoes.Add(i);
+            }
+            context.SaveChanges();
+
+            if (context.Departamentos.Any())
+            {
+                return;
+            }
+            var departamentos = new Departamento[]
+            {
+                new Departamento { Nome="Ciência da Computação", InstituicaoID = 1},
+                new Departamento { Nome="Ciência de Alimentos", InstituicaoID = 2}
+            };
+            foreach (Departamento d in departamentos)
+            {
+                context.Departamentos.Add(d);
             }
             context.SaveChanges();
         }
