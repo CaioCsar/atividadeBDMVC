@@ -84,7 +84,7 @@ namespace atividadeBDMVC.Controllers
         // POST: InstituicaoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("InstituicaoID, Nome")] Instituicao instituicao)
+        public async Task<IActionResult> Edit(long? id, [Bind("Nome, Turno,  InstituicaoID")] Instituicao instituicao)
         {   
             if(id != instituicao.InstituicaoID)
             {

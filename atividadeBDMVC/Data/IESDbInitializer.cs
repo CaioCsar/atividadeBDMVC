@@ -12,7 +12,7 @@ namespace atividadeBDMVC.Data
         {
             context.Database.EnsureCreated();
 
-            
+            // INSTITUICAO
             if (context.Instituicoes.Any())
             {
                 return;
@@ -28,14 +28,31 @@ namespace atividadeBDMVC.Data
             }
             context.SaveChanges();
 
+            // CURSOS
+            if (context.Cursos.Any())
+            {
+                return;
+            }
+            var cursos = new Curso[]
+            {
+                new Curso { Nome="Desenvolvimento de Jogos", Turno="matino", NumeroAlunos = 23, DepartamentoID = 1},
+                new Curso { Nome="Nutrição", Turno="noturno", NumeroAlunos = 45, DepartamentoID = 2}
+            };
+            foreach (Curso d in cursos)
+            {
+                context.Cursos.Add(d);
+            }
+            context.SaveChanges();
+
+            //DEPARTAMENTOS
             if (context.Departamentos.Any())
             {
                 return;
             }
             var departamentos = new Departamento[]
             {
-                new Departamento { Nome="Ciência da Computação", InstituicaoID = 1},
-                new Departamento { Nome="Ciência de Alimentos", InstituicaoID = 2}
+                new Departamento { Nome="Ciência da Computação", Campus="A2", InstituicaoID = 1},
+                new Departamento { Nome="Ciência de Alimentos", Campus="B6", InstituicaoID = 2}
             };
             foreach (Departamento d in departamentos)
             {

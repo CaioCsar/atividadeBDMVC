@@ -42,7 +42,7 @@ namespace atividadeBDMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome", "InstituicaoID")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("Nome", "Campus", "InstituicaoID")] Departamento departamento)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace atividadeBDMVC.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("DepartamentoID, Nome, InstituicaoID")] Departamento departamento)
+        public async Task<IActionResult> Edit(long? id, [Bind("DepartamentoID, Nome, Campus, InstituicaoID")] Departamento departamento)
         {
             if (id != departamento.DepartamentoID)
             {
