@@ -53,7 +53,7 @@ namespace atividadeBDMVC.Controllers
         {
             var departamento = _context.Departamentos.OrderBy(i => i.Nome).ToList();
             departamento.Insert(0, new Departamento() { DepartamentoID = 0, Nome = "Selecione o Departamento" });
-            ViewBag.departamento = departamento;
+            ViewBag.Departamentos = departamento;
             return View();
         }
 
