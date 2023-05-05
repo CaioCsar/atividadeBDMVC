@@ -130,10 +130,7 @@ namespace atividadeBDMVC.Controllers
         }
 
         // GET: CursoController/Delete/5
-
-
-        //POST: CursoController/Delete/5
-        public async Task<ActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
             {
@@ -146,6 +143,18 @@ namespace atividadeBDMVC.Controllers
             }
             return View(curso);
         }
-        
+
+        //POST: CursoController/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long? id)
+        {
+            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.CursoID == id);
+            _context.Cursos.Remove(curso);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }
