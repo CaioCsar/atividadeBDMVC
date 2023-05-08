@@ -64,9 +64,12 @@ namespace atividadeBDMVC.Controllers
         {
             try
             {
-                _context.Add(curso);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(curso);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch(DbUpdateException)
             {
