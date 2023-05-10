@@ -1,4 +1,5 @@
 ﻿using atividadeBDMVC.Data;
+using atividadeBDMVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,17 +22,18 @@ namespace atividadeBDMVC.Controllers
         // GET: DisciplinaController
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Disciplinas.Include(i=>i.DisciplinaID).OrderBy(c => c.Nome).ToListAsync());
+            return View(await _context.Disciplinas.OrderBy(c => c.Nome).ToListAsync());
+
         }
 
         // GET: DisciplinaController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(long? id)
         {
             return View();
         }
 
         // GET: DisciplinaController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -39,16 +41,23 @@ namespace atividadeBDMVC.Controllers
         // POST: DisciplinaController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("Nome")] Disciplina disciplina)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(disciplina);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            catch
+            catch (DbUpdateException)
             {
-                return View();
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
+            return View(disciplina);
+
         }
 
         // GET: DisciplinaController/Edit/5
