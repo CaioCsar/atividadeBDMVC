@@ -59,6 +59,22 @@ namespace atividadeBDMVC.Data
                 context.Cursos.Add(d);
             }
             context.SaveChanges();
+
+            // DISCIPLINA
+            if (context.Disciplinas.Any())
+            {
+                return;
+            }
+            var disciplina = new Disciplina[]
+            {
+                new Disciplina { Nome="Matematica Básica"},
+                new Disciplina { Nome="Historia da Informática"}
+            };
+            foreach (Disciplina d in disciplina)
+            {
+                context.Disciplinas.Add(d);
+            }
+            context.SaveChanges();
         }
 
     }

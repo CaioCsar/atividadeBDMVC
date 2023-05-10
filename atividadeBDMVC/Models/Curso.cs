@@ -18,5 +18,7 @@ namespace atividadeBDMVC.Models
         // ASSOCIACAO DA TABLE CURSOS COM A DEPARTAMENTO 1 - n; 1(departamento)p/ n(cursos)
         public long? DepartamentoID { get; set; }
         public Departamento Departamento { get; set; }
+
+        //Associacao de 
     }
 }

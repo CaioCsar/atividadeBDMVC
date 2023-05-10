@@ -120,26 +120,35 @@ namespace atividadeBDMVC.Controllers
         }
 
         // GET: InstituicaoController/Delete/5
-        public IActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: InstituicaoController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(long? id)
         {
-            if(id== null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var instituicao = _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
-            if (instituicao == null) 
-            { 
-                return NotFound(); 
+            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
+            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
+            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.CursoID == id);
+            if (instituicao == null)
+            {
+                return NotFound();
             }
             return View(instituicao);
+        }
+
+        // POST: InstituicaoController/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long? id)
+        {
+            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
+            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
+            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.CursoID == id);
+            _context.Cursos.Remove(curso);
+            _context.Instituicoes.Remove(instituicao);
+            _context.Departamentos.Remove(departamento);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
