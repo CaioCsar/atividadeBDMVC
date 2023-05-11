@@ -9,5 +9,9 @@ namespace atividadeBDMVC.Models
     {
         public long? DisciplinaID { get; set; }
         public string Nome { get; set; }
+
+        //Associacao de Curso e Disciplina
+
+        public virtual ICollection<CursoDisciplina> CursoDisciplinas { get; set; }
     }
 }

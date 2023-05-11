@@ -1,0 +1,34 @@
+﻿@model atividadeBDMVC.Models.Curso
+
+@{
+    ViewData["Title"] = "_PartialDetailsContentCard";
+}
+
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-9">
+            <div class="form-group">
+                <label asp-for="CursoID" class="control-label"></label>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                    </span>
+                    <input asp-for="CursoID" class="form-control" disabled="disabled" />
+                </div>
+                <label asp-for="Nome" class="control-label"></label>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    </span>
+                    <input asp-for="Nome" class="form-control" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            @Html.Partial("~/Views/Curso/_ComDepartamentos.cshtml", Model.CursoDisciplinas.ToList())
+        </div>
+    </div>
+</div>

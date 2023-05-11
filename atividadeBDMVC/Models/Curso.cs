@@ -19,6 +19,8 @@ namespace atividadeBDMVC.Models
         public long? DepartamentoID { get; set; }
         public Departamento Departamento { get; set; }
 
-        //Associacao de 
+        //Associacao de Curso e Disciplina
+
+        public virtual ICollection<CursoDisciplina> CursoDisciplinas { get; set; }
     }
 }
