@@ -44,13 +44,15 @@ namespace atividadeBDMVC.Controllers
         }
 
         // GET: DisciplinaController/Create
-        public IActionResult Create()
+        [HttpGet("[controller]/[action]/{CursoID}/{DisciplinaId}")]
+        public IActionResult Create(long? CursoID, long? DisciplinaID)
         {
-            // para que liste os Cursos em um dropdown list 
-            var cursos = _context.Cursos.OrderBy(i => i.Nome).ToList();
-            cursos.Insert(0, new Curso() { CursoID = 0, Nome = "Selecione o Curso" });
-            ViewBag.cursos = cursos;
-            return View();
+            CursoDisciplina cd = new CursoDisciplina();
+            cd.CursoID = CursoID;
+            cd.DisciplinaID = DisciplinaID;
+            _context.CursoDisciplinas.Add(cd);
+            _context.SaveChanges();
+            return Redirect("Index");
         }
 
         // POST: DisciplinaController/Create
