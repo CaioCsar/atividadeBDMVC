@@ -52,8 +52,11 @@ namespace atividadeBDMVC.Controllers
         public async Task<ActionResult> Create()
         {
             var departamento = _context.Departamentos.OrderBy(i => i.Nome).ToList();
+            var disciplina = _context.Disciplinas.OrderBy(i => i.Nome).ToList();
             departamento.Insert(0, new Departamento() { DepartamentoID = 0, Nome = "Selecione o Departamento" });
             ViewBag.Departamentos = departamento;
+            disciplina.Insert(0, new Disciplina() { DisciplinaID = 0, Nome = "Selecione a Disciplina" });
+            ViewBag.disciplina = disciplina;
             return View();
         }
 

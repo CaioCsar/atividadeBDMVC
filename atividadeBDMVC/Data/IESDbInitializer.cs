@@ -75,6 +75,8 @@ namespace atividadeBDMVC.Data
                 context.Disciplinas.Add(d);
             }
             context.SaveChanges();
+
+           
         }
 
     }
