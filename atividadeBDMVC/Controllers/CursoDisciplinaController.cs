@@ -21,9 +21,15 @@ namespace atividadeBDMVC.Controllers
         }
 
         //GET INDEX
-        public async Task<IActionResult> Index()
+        [HttpGet("[controller]/[action]/{CursoID}/{DisciplinaID}")]
+        public IActionResult Index(long? Cursoid, long? Disciplinaid)
         {
-            return View(await _context.CursoDisciplinas.Include(i => i.Curso).OrderBy(c => c.CursoID).ToListAsync());
+            CursoDisciplina cd = new CursoDisciplina();
+            cd.CursoID = Cursoid;
+            cd.DisciplinaID = Disciplinaid;
+            _context.CursoDisciplinas.Add(cd);
+            _context.SaveChanges();
+            return Redirect("Index");
         }
 
         // GET: CursoController/Details/5
