@@ -1,11 +1,8 @@
 ﻿using atividadeBDMVC.Data;
 using atividadeBDMVC.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -80,12 +77,12 @@ namespace atividadeBDMVC.Controllers
         // GET: DisciplinaController/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
             var disciplina = await _context.Disciplinas.SingleOrDefaultAsync(d => d.DisciplinaID == id);
-            if(disciplina == null)
+            if (disciplina == null)
             {
                 return NotFound();
             }
@@ -136,9 +133,9 @@ Todos confirmam o desejo pelo assento, mas há apenas uma vaga. Garantir que ape
 problema relacionado à concorrência. Em nosso exemplo, caso o EF retorne uma exceção desse tipo, é neste catch
 que ela deverá ser trabalhada. Dentro do catch , existe a invocação ao método DepartamentoExists() , que está
 implementado também no código a seguir. Esse método simplesmente verifica se há, na base de dados, algum objeto
-com o ID do objeto recebido. */ 
+com o ID do objeto recebido. */
 
-        private bool DisciplinaExists (long? id)
+        private bool DisciplinaExists(long? id)
         {
             return _context.Disciplinas.Any(e => e.DisciplinaID == id);
         }

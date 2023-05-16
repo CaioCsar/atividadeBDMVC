@@ -1,15 +1,14 @@
 ﻿using atividadeBDMVC.Data;
 using atividadeBDMVC.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace atividadeBDMVC.Controllers
 {
+    [Authorize]
     public class InstituicaoController : Controller
     {
         private readonly IESContext _context;
@@ -56,25 +55,25 @@ namespace atividadeBDMVC.Controllers
                 {
                     _context.Add(instituicao);
                     await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
                 }
             }
-            catch(DbUpdateException)
+            catch (DbUpdateException)
             {
                 ModelState.AddModelError("", "Nao foi possivel inserir os dados.");
             }
-                return View(instituicao);
+            return View(instituicao);
         }
 
         // GET: InstituicaoController/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if(id ==null)
+            if (id == null)
             {
                 return NotFound();
             }
             var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
-            if(instituicao == null)
+            if (instituicao == null)
             {
                 return NotFound();
             }
@@ -85,8 +84,8 @@ namespace atividadeBDMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long? id, [Bind("Nome, Turno,  InstituicaoID")] Instituicao instituicao)
-        {   
-            if(id != instituicao.InstituicaoID)
+        {
+            if (id != instituicao.InstituicaoID)
             {
                 return NotFound();
             }

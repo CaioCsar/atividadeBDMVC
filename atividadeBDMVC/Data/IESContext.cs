@@ -1,13 +1,11 @@
 ﻿using atividadeBDMVC.Models;
+using atividadeBDMVC.Models.Infra;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace atividadeBDMVC.Data
 {
-    public class IESContext : DbContext
+    public class IESContext : IdentityDbContext<UsuarioDaAplicacao>
     {
         public IESContext(DbContextOptions<IESContext> options) : base(options)
         {
@@ -33,7 +31,7 @@ namespace atividadeBDMVC.Data
             modelBuilder.Entity<CursoDisciplina>()
                 .HasOne(d => d.Disciplina)
                 .WithMany(cd => cd.CursoDisciplinas)
-                .HasForeignKey(d=> d.DisciplinaID);
+                .HasForeignKey(d => d.DisciplinaID);
         }
     }
 }

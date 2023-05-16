@@ -1,16 +1,15 @@
 ﻿using atividadeBDMVC.Data;
 using atividadeBDMVC.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace atividadeBDMVC.Controllers
 {
+    [Authorize]
     public class CursoController : Controller
     {
         // GET: CursoController
@@ -29,13 +28,13 @@ namespace atividadeBDMVC.Controllers
         //GET INDEX
         public async Task<ActionResult> Index()
         {
-            return View(await _context.Cursos.Include(i=>i.Departamento).OrderBy(c => c.Nome).ToListAsync());
+            return View(await _context.Cursos.Include(i => i.Departamento).OrderBy(c => c.Nome).ToListAsync());
         }
 
         // GET: CursoController/Details/5
         public async Task<ActionResult> Details(long? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -74,11 +73,11 @@ namespace atividadeBDMVC.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            catch(DbUpdateException)
+            catch (DbUpdateException)
             {
                 ModelState.AddModelError("", "Nào foi possivel inserir os dados solicitados");
             }
-                return View(curso);
+            return View(curso);
         }
 
         // GET: CursoController/Edit/5
@@ -93,7 +92,7 @@ namespace atividadeBDMVC.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Departamentos = new SelectList(_context.Departamentos.OrderBy(b=>b.Nome), "DepartamentoID","Nome",curso.DepartamentoID);
+            ViewBag.Departamentos = new SelectList(_context.Departamentos.OrderBy(b => b.Nome), "DepartamentoID", "Nome", curso.DepartamentoID);
             return View(curso);
         }
 
@@ -130,9 +129,9 @@ namespace atividadeBDMVC.Controllers
             return View(curso);
         }
 
-        private bool CursoExists (long? id)
+        private bool CursoExists(long? id)
         {
-            return _context.Cursos.Any(e=>e.CursoID == id);
+            return _context.Cursos.Any(e => e.CursoID == id);
         }
 
         // GET: CursoController/Delete/5

@@ -1,5 +1,3 @@
-using System;
-
 namespace atividadeBDMVC.Models
 {
     public class ErrorViewModel

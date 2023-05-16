@@ -1,14 +1,12 @@
 using atividadeBDMVC.Data;
+using atividadeBDMVC.Models.Infra;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace atividadeBDMVC
 {
@@ -24,9 +22,21 @@ namespace atividadeBDMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<IESContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
+          options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
             services.AddMvc();
+
+            //Configurar nossa classe para solicitar o login do usuario para iniciar
+            services.AddIdentity<UsuarioDaAplicacao, IdentityRole>()
+                .AddEntityFrameworkStores<IESContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Infra/Acessar";
+                options.AccessDeniedPath = "/Infra/AcessoNegado";
+            });
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
