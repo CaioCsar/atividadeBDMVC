@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿    @* COLETAR INFORMAÇÕES DO USUARIO PARA O LOGIN*@
+    @inject Microsoft.AspNetCore.Identity.SignInManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> SignInManager
+    @inject Microsoft.AspNetCore.Identity.UserManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> UserManager
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
@@ -9,6 +12,27 @@
 </head>
 <body>
     <header>
+        <div class="row" style="text-align:right;">
+            <div class="col-6"></div>
+
+            <div class="col-6">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div>
+                        Olá @UserManager.GetUserName(User), seja bem-vindo(a) / @Html.ActionLink("Logout", "Sair",
+                        "Infra", new { area = "" })
+                    </div>
+                }
+                else
+                {
+                    <a class="nav-item nav-link" asp-area="" asp-controller="Infra" asp-action="Acessar">
+                        Informar usuário/senha para acessar
+                    </a>
+                }
+            </div>
+        </div>
+
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Departamento" asp-action="Index">Sistema Escola</a>
