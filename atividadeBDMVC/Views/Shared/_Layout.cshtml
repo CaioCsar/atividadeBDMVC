@@ -1,12 +1,12 @@
-﻿    @* COLETAR INFORMAÇÕES DO USUARIO PARA O LOGIN*@
-    @inject Microsoft.AspNetCore.Identity.SignInManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> SignInManager
-    @inject Microsoft.AspNetCore.Identity.UserManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> UserManager
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> UserManager
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - atividadeBDMVC</title>
+    <title>@ViewData["Title"] - Sistema Escola</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -14,13 +14,11 @@
     <header>
         <div class="row" style="text-align:right;">
             <div class="col-6"></div>
-
             <div class="col-6">
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <div>
-                        Olá @UserManager.GetUserName(User), seja bem-vindo(a) / @Html.ActionLink("Logout", "Sair",
-                        "Infra", new { area = "" })
+                        Olá @UserManager.GetUserName(User), seja bem-vindo(a) / @Html.ActionLink("Logout", "Sair", "Infra", new { area = "" })
                     </div>
                 }
                 else
@@ -31,6 +29,7 @@
                 }
             </div>
         </div>
+
 
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">

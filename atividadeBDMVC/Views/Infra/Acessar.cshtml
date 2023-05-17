@@ -1,4 +1,8 @@
-﻿@model atividadeBDMVC.Models.Infra.AcessarViewModel
+﻿@* COLETAR INFORMAÇÕES DO USUARIO PARA O LOGIN*@
+@inject Microsoft.AspNetCore.Identity.SignInManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<atividadeBDMVC.Models.Infra.UsuarioDaAplicacao> UserManager
+
+@model atividadeBDMVC.Models.Infra.AcessarViewModel
 @{
     Layout = "_Layout";
 }

@@ -11,15 +11,18 @@ namespace atividadeBDMVC.Controllers
     [Authorize]
     public class InfraController : Controller
     {
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
         private readonly UserManager<UsuarioDaAplicacao> _userManager;
         private readonly SignInManager<UsuarioDaAplicacao> _signInManager;
         private readonly ILogger _logger;
 
-        public InfraController(
-        UserManager<UsuarioDaAplicacao> userManager,
-        SignInManager<UsuarioDaAplicacao> signInManager,
+        public InfraController(UserManager<UsuarioDaAplicacao> userManager,
+            SignInManager<UsuarioDaAplicacao> signInManager,
             ILogger<InfraController> logger)
-
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -63,7 +66,6 @@ namespace atividadeBDMVC.Controllers
             return View();
         }
 
-        // Para que o usuário seja registrado,
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -87,7 +89,6 @@ namespace atividadeBDMVC.Controllers
             return View(model);
         }
 
-        // adiciona um erro que poderá ser apresentado ao usuário na visão
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -96,7 +97,6 @@ namespace atividadeBDMVC.Controllers
             }
         }
 
-        // redireciona a requisição do usuário para uma determinada URL, que ele recebe como argumento
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -109,17 +109,12 @@ namespace atividadeBDMVC.Controllers
             }
         }
 
-        //logout
         [HttpGet]
         public async Task<IActionResult> Sair()
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("Usuário realizou logout.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
-
         }
-
-       
-
     }
 }
