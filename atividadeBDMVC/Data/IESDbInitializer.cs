@@ -73,6 +73,22 @@ namespace atividadeBDMVC.Data
             }
             context.SaveChanges();
 
+            // ACADEMICO
+            if (context.Academicos.Any())
+            {
+                return;
+            }
+            var academico = new Academico[]
+            {
+                new Academico { Nome="Junior"},
+                new Academico { Nome="Michel"}
+            };
+            foreach (Academico a in academico)
+            {
+                context.Academicos.Add(a);
+            }
+            context.SaveChanges();
+
 
         }
 

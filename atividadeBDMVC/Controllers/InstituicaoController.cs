@@ -47,7 +47,7 @@ namespace atividadeBDMVC.Controllers
         // POST: InstituicaoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync([Bind("Nome", "Endereco")] Instituicao instituicao)
+        public async Task<IActionResult> CreateAsync([Bind("Nome")] Instituicao instituicao)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace atividadeBDMVC.Controllers
         // POST: InstituicaoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("Nome, Turno,  InstituicaoID")] Instituicao instituicao)
+        public async Task<IActionResult> Edit(long? id, [Bind("Nome, InstituicaoID")] Instituicao instituicao)
         {
             if (id != instituicao.InstituicaoID)
             {
@@ -99,7 +99,7 @@ namespace atividadeBDMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InstituicaoExists(instituicao.InstituicaoID))
+                    if (!instituicaoExists(instituicao.InstituicaoID))
                     {
                         return NotFound();
                     }
@@ -113,7 +113,7 @@ namespace atividadeBDMVC.Controllers
             return View(instituicao);
 
         }
-        private bool InstituicaoExists(long? id)
+        private bool instituicaoExists(long? id)
         {
             return _context.Instituicoes.Any(e => e.InstituicaoID == id);
         }
@@ -126,8 +126,6 @@ namespace atividadeBDMVC.Controllers
                 return NotFound();
             }
             var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
-            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
-            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.CursoID == id);
             if (instituicao == null)
             {
                 return NotFound();
@@ -141,11 +139,8 @@ namespace atividadeBDMVC.Controllers
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
             var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
-            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
-            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.CursoID == id);
-            _context.Cursos.Remove(curso);
+        
             _context.Instituicoes.Remove(instituicao);
-            _context.Departamentos.Remove(departamento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

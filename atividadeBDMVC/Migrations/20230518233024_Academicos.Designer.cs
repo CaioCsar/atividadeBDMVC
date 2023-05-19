@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using atividadeBDMVC.Data;
 
 namespace atividadeBDMVC.Migrations
 {
     [DbContext(typeof(IESContext))]
-    partial class IESContextModelSnapshot : ModelSnapshot
+    [Migration("20230518233024_Academicos")]
+    partial class Academicos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,7 +154,7 @@ namespace atividadeBDMVC.Migrations
 
             modelBuilder.Entity("atividadeBDMVC.Models.Academico", b =>
                 {
-                    b.Property<long?>("AcademicoID")
+                    b.Property<long?>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
@@ -166,7 +168,7 @@ namespace atividadeBDMVC.Migrations
                     b.Property<string>("imgType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AcademicoID");
+                    b.HasKey("id");
 
                     b.ToTable("Academicos");
                 });

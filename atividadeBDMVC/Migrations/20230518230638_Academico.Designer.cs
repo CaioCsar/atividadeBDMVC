@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using atividadeBDMVC.Data;
 
 namespace atividadeBDMVC.Migrations
 {
     [DbContext(typeof(IESContext))]
-    partial class IESContextModelSnapshot : ModelSnapshot
+    [Migration("20230518230638_Academico")]
+    partial class Academico
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,27 +150,6 @@ namespace atividadeBDMVC.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("atividadeBDMVC.Models.Academico", b =>
-                {
-                    b.Property<long?>("AcademicoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("img")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("imgType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AcademicoID");
-
-                    b.ToTable("Academicos");
                 });
 
             modelBuilder.Entity("atividadeBDMVC.Models.Curso", b =>

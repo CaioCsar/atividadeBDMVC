@@ -19,6 +19,8 @@ namespace atividadeBDMVC.Controllers
         }*/
 
         private readonly IESContext _context;
+        private readonly Disciplina disciplina;
+        private readonly CursoDisciplinaController cursoDisciplina;
 
         public CursoController(IESContext context)
         {
@@ -50,6 +52,7 @@ namespace atividadeBDMVC.Controllers
         // GET: CursoController/Create
         public async Task<ActionResult> Create()
         {
+            //var curso = _context.Cursos.Where(c => c.CursoID == cursoID).Include(cp => cp.CursoDisciplinas).First();
             var departamento = _context.Departamentos.OrderBy(i => i.Nome).ToList();
             var disciplina = _context.Disciplinas.OrderBy(i => i.Nome).ToList();
             departamento.Insert(0, new Departamento() { DepartamentoID = 0, Nome = "Selecione o Departamento" });

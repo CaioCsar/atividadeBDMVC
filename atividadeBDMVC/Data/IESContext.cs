@@ -16,11 +16,13 @@ namespace atividadeBDMVC.Data
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<CursoDisciplina> CursoDisciplinas { get; set; }
+        public DbSet<Academico> Academicos { get; set; }
 
         //Definicao de relacionamento N:N entre Curso e Disciplina, utilizando o Fluent API
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<CursoDisciplina>().HasKey(cd => new { cd.CursoID, cd.DisciplinaID });
 
             modelBuilder.Entity<CursoDisciplina>()
